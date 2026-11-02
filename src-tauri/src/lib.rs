@@ -226,7 +226,7 @@ mod tests {
 
     #[test]
     fn atomic_write_replaces_file() {
-        let dir = std::env::temp_dir().join(format!("pdf-edit-test-{}", std::process::id()));
+        let dir = std::env::temp_dir().join(format!("astatine-test-{}", std::process::id()));
         fs::create_dir_all(&dir).unwrap();
         let path = dir.join("out.pdf");
         write_atomically(&path, b"first").unwrap();

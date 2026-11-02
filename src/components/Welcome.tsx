@@ -36,7 +36,7 @@ export function Welcome() {
       <Paper variant="outlined" sx={{ p: { xs: 3, sm: 5 }, maxWidth: 560, width: '100%', textAlign: 'center', borderRadius: 3 }}>
         <Box component="img" src="/icon.svg" alt="" sx={{ width: 64, height: 64, mb: 2 }} />
         <Typography variant="h5" sx={{ fontWeight: 700 }} gutterBottom>
-          PDF Editor
+          Astatine
         </Typography>
         <Typography color="text.secondary" sx={{ mb: 3 }}>
           Open a PDF to add text or change the text that’s already in it.

@@ -11,7 +11,7 @@ import { PDFDocument, PDFName, PDFString, StandardFonts, degrees, rgb } from 'pd
 
 const outDir = resolve('test/fixtures');
 mkdirSync(outDir, { recursive: true });
-const work = mkdtempSync(join(tmpdir(), 'pdf-edit-fixtures-'));
+const work = mkdtempSync(join(tmpdir(), 'astatine-fixtures-'));
 
 async function pdfLibFixture() {
   const doc = await PDFDocument.create();

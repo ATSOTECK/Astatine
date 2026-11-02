@@ -506,7 +506,7 @@ export function writeFreeText(
   if (rotationIsQuarterTurn(obj.angle)) set('Rotate', PDFNumber.of(((Math.round(obj.angle / 90) * 90) % 360 + 360) % 360));
   else annot.delete(PDFName.of('Rotate'));
   if (!existing) {
-    set('NM', PDFString.of(`pdf-edit-${obj.id}`));
+    set('NM', PDFString.of(`astatine-${obj.id}`));
     set('CreationDate', PDFString.of(formatDate(new Date())));
   }
   return annot;

@@ -18,7 +18,7 @@ export function usePlatformIntegration(): boolean {
   const dirty = useEditor((s) => isDirty(s));
 
   useEffect(() => {
-    const title = name ? `${dirty ? '• ' : ''}${name} — PDF Editor` : 'PDF Editor';
+    const title = name ? `${dirty ? '• ' : ''}${name} — Astatine` : 'Astatine';
     if (inTauri) void getCurrentWindow().setTitle(title);
     else document.title = title;
   }, [name, dirty]);

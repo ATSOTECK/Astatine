@@ -123,7 +123,7 @@ export function loadFace(face: InstalledFace): Promise<LoadedFace | null> {
         const font = fontkit.create(bytes);
         const fsType = (font['OS/2'] as { fsType?: number } | undefined)?.fsType ?? 0;
         if ((fsType & 0x000f) === 0x0002) return null; // "Restricted License embedding"
-        const cssFamily = `PDF Editor ${face.postscriptName}`;
+        const cssFamily = `Astatine ${face.postscriptName}`;
         const fontFace = new FontFace(cssFamily, bytes as BufferSource);
         await fontFace.load();
         document.fonts.add(fontFace);

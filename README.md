@@ -11,7 +11,7 @@ A desktop PDF editor built with **Tauri 2, React, MUI and TypeScript**. Open a P
 
 | | |
 |---|---|
-| Open | **Open** button, ⌘O, drag a PDF onto the window, or "Open With → PDF Editor" |
+| Open | **Open** button, ⌘O, drag a PDF onto the window, or "Open With → Astatine" |
 | Select text | **Select** mode (V), the default: drag to highlight text, ⌘C to copy, ⌘A for all text. Nothing can be changed in this mode |
 | Edit existing text | **Edit** mode (E), then click a line of text. A box appears with the caret where you clicked. Just clicking isn't an edit: if you click away without changing anything, the original is left exactly as it was and there's nothing to undo |
 | Add text | **Add Text** mode (T), then click on the page and type |

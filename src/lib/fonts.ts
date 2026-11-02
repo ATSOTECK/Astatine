@@ -10,7 +10,7 @@ import { installedFontBytes, resolveInstalledFont, type LoadedFace } from './ins
  * saved file.
  */
 
-const UNICODE_FAMILY = 'PDF Editor Unicode';
+const UNICODE_FAMILY = 'Astatine Unicode';
 
 const STACKS: Record<FontFamily, string> = {
   Helvetica: 'Helvetica, Arial, "Liberation Sans", "Nimbus Sans", sans-serif',

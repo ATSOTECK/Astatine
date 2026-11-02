@@ -5,7 +5,7 @@ import { DEFAULT_DARK, DEFAULT_LIGHT, THEMES, type ThemeDefinition } from './the
 /** "system" follows the OS appearance (Light/Dark); otherwise a theme id. */
 export type ThemeChoice = 'system' | string;
 
-const STORAGE_KEY = 'pdf-editor.theme';
+const STORAGE_KEY = 'astatine.theme';
 
 function initialChoice(): ThemeChoice {
   try {

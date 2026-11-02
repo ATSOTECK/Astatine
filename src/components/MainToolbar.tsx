@@ -48,7 +48,7 @@ export function MainToolbar() {
         <PictureAsPdfIcon color="primary" />
         <Box sx={{ minWidth: 0, mr: 1, display: 'flex', alignItems: 'baseline', gap: 0.75 }}>
           <Typography variant="subtitle1" noWrap sx={{ fontWeight: 600, maxWidth: 280 }} title={doc?.path ?? doc?.name}>
-            {doc ? doc.name : 'PDF Editor'}
+            {doc ? doc.name : 'Astatine'}
           </Typography>
           {dirty && (
             <Typography variant="caption" color="text.secondary" noWrap>
