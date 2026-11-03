@@ -7,8 +7,8 @@ use std::{
 
 use percent_encoding::percent_decode_str;
 use tauri::{
-    ipc::{InvokeBody, Request, Response},
     Emitter, Manager, State,
+    ipc::{InvokeBody, Request, Response},
 };
 
 mod window_state;
@@ -48,7 +48,8 @@ async fn write_file(request: Request<'_>) -> Result<(), String> {
     let path = PathBuf::from(path);
     let data = data.clone();
     tauri::async_runtime::spawn_blocking(move || {
-        write_atomically(&path, &data).map_err(|e| format!("Could not save “{}”: {e}", path.display()))
+        write_atomically(&path, &data)
+            .map_err(|e| format!("Could not save “{}”: {e}", path.display()))
     })
     .await
     .map_err(|e| e.to_string())?
@@ -64,7 +65,11 @@ fn write_atomically(path: &Path, data: &[u8]) -> io::Result<()> {
     let name = path
         .file_name()
         .ok_or_else(|| io::Error::new(io::ErrorKind::InvalidInput, "invalid file name"))?;
-    let tmp = dir.join(format!(".{}.{}.tmp", name.to_string_lossy(), std::process::id()));
+    let tmp = dir.join(format!(
+        ".{}.{}.tmp",
+        name.to_string_lossy(),
+        std::process::id()
+    ));
 
     let result = (|| {
         let mut file = fs::File::create(&tmp)?;
@@ -181,6 +186,8 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .setup(|app| {
             if let Some(window) = app.get_webview_window(window_state::MAIN_WINDOW) {
+                #[cfg(not(target_os = "macos"))]
+                let _ = window.set_decorations(false);
                 window_state::restore(&window);
             }
             Ok(())
@@ -210,7 +217,11 @@ pub fn run() {
                     return;
                 }
                 // Queue them for a UI that is still starting, and notify a running one.
-                app.state::<PendingFiles>().0.lock().unwrap().extend(paths.iter().cloned());
+                app.state::<PendingFiles>()
+                    .0
+                    .lock()
+                    .unwrap()
+                    .extend(paths.iter().cloned());
                 let _ = app.emit("open-files", paths);
             }
             let _ = (app, event);
@@ -226,9 +237,17 @@ mod tests {
         let fonts = installed_fonts();
         // Every desktop OS ships fonts; make sure the scan found some and they're well formed.
         assert!(!fonts.is_empty(), "no system fonts found");
-        assert!(fonts.iter().all(|f| !f.family.is_empty() && !f.postscript_name.is_empty()));
+        assert!(
+            fonts
+                .iter()
+                .all(|f| !f.family.is_empty() && !f.postscript_name.is_empty())
+        );
         #[cfg(target_os = "macos")]
-        assert!(fonts.iter().any(|f| f.postscript_name == "Helvetica-Bold" && f.weight >= 600));
+        assert!(
+            fonts
+                .iter()
+                .any(|f| f.postscript_name == "Helvetica-Bold" && f.weight >= 600)
+        );
         #[cfg(target_os = "macos")]
         if Path::new("/Applications/LibreOffice.app/Contents/Resources/fonts/truetype").is_dir() {
             assert!(fonts.iter().any(|f| f.postscript_name == "Carlito-Bold"));
@@ -243,7 +262,11 @@ mod tests {
         write_atomically(&path, b"first").unwrap();
         write_atomically(&path, b"second").unwrap();
         assert_eq!(fs::read(&path).unwrap(), b"second");
-        assert_eq!(fs::read_dir(&dir).unwrap().count(), 1, "temporary file left behind");
+        assert_eq!(
+            fs::read_dir(&dir).unwrap().count(),
+            1,
+            "temporary file left behind"
+        );
         fs::remove_dir_all(&dir).unwrap();
     }
 }

@@ -12,11 +12,11 @@ import { useState } from 'react';
 import { setThemeChoice, useThemeChoice } from '../theme/themeChoice';
 import { DEFAULT_DARK, DEFAULT_LIGHT, THEMES, type ThemeDefinition } from '../theme/themes';
 
-/** A tiny picture of the theme: backdrop, a toolbar strip and the accent colour. */
 function Swatch({ theme, split }: { theme: ThemeDefinition; split?: ThemeDefinition }) {
   const tile = (t: ThemeDefinition) => (
     <Box sx={{ flex: 1, bgcolor: t.backdrop, display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ height: 7, bgcolor: t.surface, borderBottom: `1px solid ${t.divider}` }} />
+      <Box sx={{ height: 4, bgcolor: t.titleBar }} />
+      <Box sx={{ height: 6, bgcolor: t.surface, borderBottom: `1px solid ${t.divider}` }} />
       <Box sx={{ flex: 1, display: 'grid', placeItems: 'center' }}>
         <Box sx={{ width: 9, height: 9, borderRadius: '50%', bgcolor: t.primary }} />
       </Box>

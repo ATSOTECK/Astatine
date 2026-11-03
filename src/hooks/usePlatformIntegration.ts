@@ -7,6 +7,12 @@ import { confirmDiscard, inTauri, openBrowserFile } from '../platform/files';
 import { isDirty, showNotice, stopEditing, useEditor } from '../state/store';
 import { requestOpenFile, requestOpenPath } from './useFileActions';
 
+export function useWindowTitle(): string {
+  const name = useEditor((s) => s.doc?.name);
+  const dirty = useEditor((s) => isDirty(s));
+  return name ? `${dirty ? '• ' : ''}${name} — Astatine` : 'Astatine';
+}
+
 /**
  * Window title, unsaved-changes prompt on close, drag & drop, and files
  * opened from Finder/Explorer ("Open With", double-click, command line).
@@ -14,14 +20,12 @@ import { requestOpenFile, requestOpenPath } from './useFileActions';
  */
 export function usePlatformIntegration(): boolean {
   const [dragging, setDragging] = useState(false);
-  const name = useEditor((s) => s.doc?.name);
-  const dirty = useEditor((s) => isDirty(s));
+  const title = useWindowTitle();
 
   useEffect(() => {
-    const title = name ? `${dirty ? '• ' : ''}${name} — Astatine` : 'Astatine';
     if (inTauri) void getCurrentWindow().setTitle(title);
     else document.title = title;
-  }, [name, dirty]);
+  }, [title]);
 
   useEffect(() => {
     if (!inTauri) {

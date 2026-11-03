@@ -11,6 +11,7 @@ import { useEffect, useMemo } from 'react';
 import { FormatBar } from './components/FormatBar';
 import { MainToolbar } from './components/MainToolbar';
 import { StatusBar } from './components/StatusBar';
+import { TitleBar } from './components/TitleBar';
 import { Viewer } from './components/Viewer';
 import { Welcome } from './components/Welcome';
 import { usePlatformIntegration } from './hooks/usePlatformIntegration';
@@ -82,6 +83,7 @@ function Editor() {
 
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {inTauri && <TitleBar />}
       <MainToolbar />
       {hasDoc && <FormatBar />}
       <Box sx={{ flex: 1, position: 'relative', minHeight: 0 }}>
@@ -108,7 +110,6 @@ export default function App() {
   const theme = useMemo(() => buildTheme(active), [active]);
 
   useEffect(() => {
-    // Native controls (scrollbars, colour picker) and the window title bar follow the theme.
     document.documentElement.style.colorScheme = active.mode;
     if (inTauri) void getCurrentWindow().setTheme(followSystem ? null : active.mode).catch(() => {});
   }, [active.mode, followSystem]);

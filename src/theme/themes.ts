@@ -16,6 +16,9 @@ export interface ThemeDefinition {
   backdrop: string;
   /** Toolbars, menus, dialogs. */
   surface: string;
+  /** Window title bar background, and its text and window buttons. */
+  titleBar: string;
+  titleBarText: string;
   text: string;
   textSecondary: string;
   divider: string;
@@ -33,6 +36,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#7c3aed',
     backdrop: '#e6e8ec',
     surface: '#ffffff',
+    titleBar: '#eceef1',
+    titleBarText: '#1f2328',
     text: '#1f2328',
     textSecondary: '#59636e',
     divider: '#d8dce2',
@@ -48,6 +53,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#076678',
     backdrop: '#ebdbb2',
     surface: '#fbf1c7',
+    titleBar: '#ebdbb2',
+    titleBarText: '#3c3836',
     text: '#3c3836',
     textSecondary: '#7c6f64',
     divider: '#d5c4a1',
@@ -63,6 +70,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#2aa198',
     backdrop: '#eee8d5',
     surface: '#fdf6e3',
+    titleBar: '#eee8d5',
+    titleBarText: '#586e75',
     text: '#586e75',
     textSecondary: '#839496',
     divider: '#e4dcc4',
@@ -78,6 +87,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#1e66f5',
     backdrop: '#dce0e8',
     surface: '#eff1f5',
+    titleBar: '#e6e9ef',
+    titleBarText: '#4c4f69',
     text: '#4c4f69',
     textSecondary: '#6c6f85',
     divider: '#ccd0da',
@@ -93,6 +104,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#b39ddb',
     backdrop: '#1b1c1f',
     surface: '#26282c',
+    titleBar: '#1b1c1f',
+    titleBarText: '#e8eaed',
     text: '#e8eaed',
     textSecondary: '#a0a4ab',
     divider: '#3a3d42',
@@ -108,6 +121,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#83a598',
     backdrop: '#1d2021',
     surface: '#282828',
+    titleBar: '#1d2021',
+    titleBarText: '#ebdbb2',
     text: '#ebdbb2',
     textSecondary: '#a89984',
     divider: '#504945',
@@ -123,6 +138,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#2aa198',
     backdrop: '#00212b',
     surface: '#002b36',
+    titleBar: '#00212b',
+    titleBarText: '#93a1a1',
     text: '#93a1a1',
     textSecondary: '#839496',
     divider: '#073642',
@@ -138,6 +155,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#89b4fa',
     backdrop: '#11111b',
     surface: '#1e1e2e',
+    titleBar: '#181825',
+    titleBarText: '#cdd6f4',
     text: '#cdd6f4',
     textSecondary: '#a6adc8',
     divider: '#313244',
@@ -153,6 +172,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#81a1c1',
     backdrop: '#242933',
     surface: '#2e3440',
+    titleBar: '#242933',
+    titleBarText: '#d8dee9',
     text: '#eceff4',
     textSecondary: '#aeb7c6',
     divider: '#3b4252',
@@ -168,6 +189,8 @@ export const THEMES: ThemeDefinition[] = [
     secondary: '#ff79c6',
     backdrop: '#1e1f29',
     surface: '#282a36',
+    titleBar: '#21222c',
+    titleBarText: '#f8f8f2',
     text: '#f8f8f2',
     textSecondary: '#b5b9d4',
     divider: '#44475a',
