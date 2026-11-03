@@ -11,6 +11,8 @@ use tauri::{
     Emitter, Manager, State,
 };
 
+mod window_state;
+
 /// Files the OS asked us to open before the UI was ready to receive them.
 #[derive(Default)]
 struct PendingFiles(Mutex<Vec<String>>);
@@ -177,6 +179,12 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
+        .setup(|app| {
+            if let Some(window) = app.get_webview_window(window_state::MAIN_WINDOW) {
+                window_state::restore(&window);
+            }
+            Ok(())
+        })
         .manage(PendingFiles(Mutex::new(initial)))
         .invoke_handler(tauri::generate_handler![
             read_file,
@@ -187,6 +195,9 @@ pub fn run() {
         .build(tauri::generate_context!())
         .expect("error while building tauri application")
         .run(|app, event| {
+            if let tauri::RunEvent::Exit = event {
+                window_state::save(app);
+            }
             #[cfg(any(target_os = "macos", target_os = "ios"))]
             if let tauri::RunEvent::Opened { urls } = &event {
                 let paths: Vec<String> = urls
