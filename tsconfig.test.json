@@ -4,5 +4,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["src/pdf", "src/model", "test"]
+  "include": ["src/pdf", "src/model", "src/vite-env.d.ts", "test"]
 }

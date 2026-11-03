@@ -26,11 +26,6 @@ import { basename, downloadPdf, inTauri, pickSavePath, writePdf, type OpenedFile
 /** select: highlight and copy text only · edit: change and move text · text: add new text */
 export type Tool = 'select' | 'edit' | 'text';
 
-/**
- * Existing page text that was clicked for editing. Until it is actually
- * changed this isn't an edit: clicking elsewhere puts the original back, and
- * nothing is recorded for undo.
- */
 export interface PendingConversion {
   objectId: string;
   pageIndex: number;
@@ -532,13 +527,13 @@ export function addText(pageIndex: number, x: number, y: number, angle: number):
 }
 
 export function deleteObject(id: string): void {
+  stopEditing();
   const { current } = get();
-  if (!current) return;
-  apply({ ...current, objects: current.objects.filter((o) => o.id !== id) });
-  set((s) => ({
-    selectedId: s.selectedId === id ? null : s.selectedId,
-    editingId: s.editingId === id ? null : s.editingId,
-  }));
+  // Emptied text is already gone once typing stops.
+  if (current?.objects.some((o) => o.id === id)) {
+    apply({ ...current, objects: current.objects.filter((o) => o.id !== id) });
+  }
+  set((s) => ({ selectedId: s.selectedId === id ? null : s.selectedId }));
 }
 
 export function select(id: string | null): void {
@@ -658,6 +653,7 @@ export async function editExistingText(
 function restore(next: Snapshot, from: 'undo' | 'redo'): void {
   const { current, undoStack, redoStack, selectedId } = get();
   if (!current) return;
+  gestureBase = null;
   const stacks =
     from === 'undo'
       ? { undoStack: undoStack.slice(0, -1), redoStack: [...redoStack, current] }
@@ -665,6 +661,7 @@ function restore(next: Snapshot, from: 'undo' | 'redo'): void {
   set({
     ...stacks,
     current: next,
+    pendingConversion: null,
     selectedId: next.objects.some((o) => o.id === selectedId) ? selectedId : null,
   });
   if (next.workingBytes !== current.workingBytes) void showBytes(next.workingBytes, 'all');
